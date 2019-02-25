@@ -98,7 +98,7 @@ const addProxies = (functionsObject, location) => {
     // filter out functions with event config,
     // leaving just those intended for direct lambda-to-lambda invocation
     const functionObject = functionsObject[fn];
-    if (!functionObject.events || functionObject.events.length === 0) {
+    if (!functionObject.events || functionObject.events.filter(event => !event.schedule).length === 0) {
       const pf = functionProxy(functionObject, location);
       functionsObject[pf.name] = pf;
     }
